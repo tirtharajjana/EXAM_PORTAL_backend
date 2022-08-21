@@ -40,4 +40,19 @@ public class UserServiceImpl implements UserService {
         }
         return local;
     }
+
+    /**
+     * getting user by username
+     * @param username
+     * @return
+     */
+    @Override
+    public User getUser(String username) {
+        return this.userRepository.findByUsername(username);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        this.userRepository.deleteById(id);
+    }
 }
