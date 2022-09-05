@@ -1,6 +1,7 @@
 package com.exam.examserver.controller;
 
 import com.exam.examserver.config.JwtUtils;
+import com.exam.examserver.helper.UserNotFoundException;
 import com.exam.examserver.model.JwtRequest;
 import com.exam.examserver.model.JwtResponse;
 import com.exam.examserver.model.User;
@@ -32,12 +33,12 @@ public class AuthenticateController {
 
     //generate token
     @PostMapping("/generate-token")
-    public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest){
+    public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws UserNotFoundException {
         try {
             authenticate(jwtRequest.getUsername(), jwtRequest.getPassword());
         }catch (UsernameNotFoundException e){
             e.printStackTrace();
-            throw new UsernameNotFoundException("User not found");
+            throw new UserNotFoundException("User not found");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

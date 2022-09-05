@@ -1,5 +1,6 @@
 package com.exam.examserver.controller;
 
+import com.exam.examserver.helper.UserFoundException;
 import com.exam.examserver.model.Role;
 import com.exam.examserver.model.User;
 import com.exam.examserver.model.UserRole;
@@ -56,4 +57,8 @@ public class UserController {
         this.userService.deleteUser(userId);
     }
 
+    @ExceptionHandler(UserFoundException.class)
+    public String handleException(UserFoundException e){
+        return e.getMessage();
+    }
 }
